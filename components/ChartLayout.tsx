@@ -293,6 +293,7 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({ data }) => {
              flex items-center justify-center relative
              ${isCenterTop || isGridCards ? 'w-full' : 'col-span-8'}
              ${isGridCards ? 'h-auto' : 'h-[60vh]'}
+             ${data.id === 5 ? 'top-[-10%]' : ''}
              ${data.id === 6 ? 'top-[-10%]' : ''}
         `}>
             <div className={`w-full h-full relative z-10 flex items-center ${data.id === 10 ? 'justify-center' : 'justify-center'} ${isGridCards ? '' : 'bg-black/20 border border-white/5 backdrop-blur-sm'}`}>
