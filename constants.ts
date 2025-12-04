@@ -235,7 +235,7 @@ export const REPORT_PAGES: PageData[] = [
   {
     id: 6,
     type: 'CHART',
-    section: '第四部分：核心资产深度审计',
+    section: '第四部分：游戏核心',
     title: '定义 Next-Gen',
     subTitle: '3D即时战术 + 工业模拟：从内容消耗到规则涌现',
     layout: 'CENTER_TOP',
@@ -315,7 +315,7 @@ export const REPORT_PAGES: PageData[] = [
   {
     id: 7,
     type: 'CHART',
-    section: '第四部分：核心资产深度审计',
+    section: '第四部分：游戏核心',
     title: '六维能力雷达对比',
     subTitle: '差异化生存策略：基于评论情感分析的非对称优势构建',
     layout: 'SPLIT_LEFT', 
@@ -351,7 +351,7 @@ export const REPORT_PAGES: PageData[] = [
   {
     id: 8,
     type: 'DIAGRAM',
-    section: '第四部分：核心资产深度审计',
+    section: '第四部分：游戏核心',
     title: '沉没成本设计',
     subTitle: '基建系统 (AIC) 的留存逻辑',
     layout: 'VERTICAL_INVERTED', // Chain on Top, Explanation Below
