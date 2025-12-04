@@ -179,8 +179,8 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({ data }) => {
       </div>
 
 
-      <div className={`w-full max-w-[90%] mx-auto grid gap-16 relative z-10 ${isCenterTop || isGridCards ? 'grid-cols-1' : 'grid-cols-12'}`}>
-        
+      <div className={`w-full max-w-[90%] mx-auto grid gap-16 relative z-10 ${isCenterTop || isGridCards ? 'grid-cols-1' : 'grid-cols-12'} ${data.id === 10 ? 'scale-90' : ''}`}>
+
         {/* TEXT CONTENT: Render FIRST usually, but checks layout for Grid spans */}
         <div className={`
              flex flex-col justify-center
@@ -295,7 +295,7 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({ data }) => {
              ${isGridCards ? 'h-auto' : 'h-[60vh]'}
              ${data.id === 6 ? 'top-[-10%]' : ''}
         `}>
-            <div className={`w-full h-full relative z-10 flex items-center justify-center ${isGridCards ? '' : 'bg-black/20 border border-white/5 backdrop-blur-sm'}`}>
+            <div className={`w-full h-full relative z-10 flex items-center ${data.id === 10 ? 'justify-center' : 'justify-center'} ${isGridCards ? '' : 'bg-black/20 border border-white/5 backdrop-blur-sm'}`}>
                 
                 {/* Decorative Corners */}
                 {!isGridCards && (
