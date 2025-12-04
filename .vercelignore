@@ -1,0 +1,8 @@
+node_modules
+.git
+.vscode
+.idea
+*.log
+*.md
+documents
+最后一页分镜.md
