@@ -62,12 +62,12 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({ data }) => {
                         <div className="w-6 h-[2px] bg-ark-cyan"></div>
                         {data.section}
                      </div>
-                     <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight mb-3 font-sans">{data.title}</h2>
-                     <p className="text-gray-400 font-light tracking-wide text-xl">{data.subTitle}</p>
+                     <h2 className={`${data.id === 1 ? 'text-3xl lg:text-4xl' : 'text-4xl lg:text-5xl'} font-bold text-white leading-tight mb-3 font-sans`}>{data.title}</h2>
+                     <p className={`text-gray-400 font-light tracking-wide ${data.id === 1 ? 'text-base' : 'text-xl'}`}>{data.subTitle}</p>
                  </motion.div>
 
                  <div className="flex-grow max-h-[60vh]">
-                     {renderChart(chart)}
+                     {renderChart(chart, data.id)}
                  </div>
              </div>
           </section>
@@ -498,7 +498,7 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({ data }) => {
   );
 };
 
-const renderChart = (config: ChartConfig) => {
+const renderChart = (config: ChartConfig, pageId?: number) => {
     switch (config.type) {
         case 'RADAR': return <RadarChart config={config} />;
         case 'BAR_HORIZONTAL': return <BarChartHorizontal config={config} />;
@@ -507,7 +507,7 @@ const renderChart = (config: ChartConfig) => {
         case 'FINANCIAL_TABLE': return <FinancialTable config={config} />;
         case 'RISK_MATRIX': return <RiskMatrix config={config} />;
         case 'DIAGRAM': return <SchematicDiagram config={config} />;
-        case 'CARDS_EXPANDABLE': return <ExpandableCards config={config} />;
+        case 'CARDS_EXPANDABLE': return <ExpandableCards config={config} pageId={pageId} />;
         case 'INDUSTRY_EVOLUTION': return <IndustryEvolutionChart config={config} />;
         case 'PIE': return <PieChart config={config} />;
         case 'QUAD_GRID': return <QuadGrid config={config} />;
@@ -719,8 +719,9 @@ const IndustryEvolutionChart: React.FC<{ config: ChartConfig }> = ({ config }) =
     );
 };
 
-const ExpandableCards: React.FC<{ config: ChartConfig }> = ({ config }) => {
+const ExpandableCards: React.FC<{ config: ChartConfig; pageId?: number }> = ({ config, pageId }) => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const isExecPage = pageId === 1;
 
     return (
         <div className="w-full h-full flex gap-8 items-stretch justify-center relative px-2 py-4">
@@ -765,17 +766,23 @@ const ExpandableCards: React.FC<{ config: ChartConfig }> = ({ config }) => {
                             {/* Title */}
                             <motion.h3 
                                 layout="position"
-                                className={`font-bold text-white mb-6 leading-none transition-all duration-500 ${isActive ? 'text-3xl lg:text-4xl' : 'text-2xl lg:text-3xl'}`}
+                                className={`font-bold text-white mb-6 leading-none transition-all duration-500 ${
+                                    isActive 
+                                        ? (isExecPage ? 'text-2xl lg:text-3xl' : 'text-3xl lg:text-4xl') 
+                                        : (isExecPage ? 'text-xl lg:text-2xl' : 'text-2xl lg:text-3xl')
+                                }`}
                             >
                                 {item.label}
                             </motion.h3>
 
-                            {/* Summary Text - Fade out when active to make room, or keep if layout permits. 
-                                Strategy: Keep it but distinct style.
-                            */}
+                            {/* Summary Text */}
                             <motion.div 
                                 layout="position"
-                                className={`text-gray-400 font-light leading-relaxed border-l-2 border-white/20 pl-5 mb-6 transition-all duration-500 ${isActive ? 'text-lg opacity-80' : 'text-base opacity-100'}`}
+                                className={`text-gray-400 font-light leading-relaxed border-l-2 border-white/20 pl-5 mb-6 transition-all duration-500 ${
+                                    isActive 
+                                        ? (isExecPage ? 'text-base opacity-80' : 'text-lg opacity-80') 
+                                        : (isExecPage ? 'text-sm opacity-100' : 'text-base opacity-100')
+                                }`}
                             >
                                 {item.details}
                             </motion.div>
@@ -790,8 +797,11 @@ const ExpandableCards: React.FC<{ config: ChartConfig }> = ({ config }) => {
                                         transition={{ delay: 0.2, duration: 0.5 }}
                                         className="mt-6 pt-8 border-t border-white/10 flex-grow overflow-y-auto pr-4 custom-scrollbar"
                                     >
-                                        <h4 className="text-2xl font-bold text-ark-cyan mb-6 tracking-wide">{item.expandedContent.title}</h4>
-                                        <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+                                        {/* Expanded Content Title */}
+                                        {!isExecPage && (
+                                            <h4 className={`${isExecPage ? 'text-xl' : 'text-2xl'} font-bold text-white mb-6 tracking-wide`}>{item.expandedContent.title}</h4>
+                                        )}
+                                        <p className={`${isExecPage ? 'text-base' : 'text-xl'} text-gray-200 mb-8 leading-relaxed`}>
                                             {item.expandedContent.description}
                                         </p>
                                         
@@ -801,7 +811,7 @@ const ExpandableCards: React.FC<{ config: ChartConfig }> = ({ config }) => {
                                                 {item.expandedContent.dataPoints.map((dp, i) => (
                                                     <div key={i} className="bg-white/5 p-4 rounded border-l-2 border-ark-cyan">
                                                         <div className="text-xs text-gray-400 uppercase mb-2 tracking-wider">{dp.label}</div>
-                                                        <div className="text-xl lg:text-3xl font-bold text-white font-mono">{dp.value}</div>
+                                                        <div className={`${isExecPage ? 'text-lg lg:text-2xl' : 'text-xl lg:text-3xl'} font-bold text-white font-mono`}>{dp.value}</div>
                                                     </div>
                                                 ))}
                                             </div>
@@ -810,7 +820,7 @@ const ExpandableCards: React.FC<{ config: ChartConfig }> = ({ config }) => {
                                         {/* Detailed Bullets */}
                                         <ul className="space-y-4">
                                             {item.expandedContent.bullets.map((bullet, i) => (
-                                                <li key={i} className="flex gap-4 text-base lg:text-lg text-gray-300 items-start">
+                                                <li key={i} className={`flex gap-4 ${isExecPage ? 'text-sm lg:text-base' : 'text-base lg:text-lg'} text-gray-300 items-start`}>
                                                     <div className="w-1.5 h-1.5 bg-ark-cyan mt-2.5 rounded-full flex-shrink-0 shadow-[0_0_8px_#00b2d6]"></div>
                                                     <span className="leading-relaxed">{bullet}</span>
                                                 </li>
