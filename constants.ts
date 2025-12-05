@@ -207,7 +207,7 @@ export const REPORT_PAGES: PageData[] = [
           { 
               label: '流量基石', 
               group: '明日方舟 2D', 
-              details: '每年35亿+稳定营收提供安全垫。\n沉淀千万级核心私域用户，获客成本接近于零。', 
+              details: '每年20亿+稳定营收提供安全垫。\n沉淀千万级核心私域用户，获客成本接近于零。', 
               color: '#2dd4bf', 
               iconName: 'Users' 
           },
@@ -353,7 +353,7 @@ export const REPORT_PAGES: PageData[] = [
     type: 'DIAGRAM',
     section: '第四部分：游戏核心',
     title: '沉没成本设计',
-    subTitle: '基建系统 (AIC) 的留存逻辑',
+    subTitle: '集成工业系统 (AIC) 的留存逻辑',
     layout: 'VERTICAL_INVERTED', // Chain on Top, Explanation Below
     content: {
       heading: '核心循环：工业化工程蓝图',
@@ -490,7 +490,7 @@ export const REPORT_PAGES: PageData[] = [
           { label: 'P/S 倍数', value: 2.0, value2: 3.0, value3: 4.0, details: 'x' },
           { label: '目标市值', value: 60, value2: 120, value3: 220, details: '亿 RMB' },
         ],
-        highlight: '尽管竞品对标 4x，坚持 **3倍 P/S** 的保守定价，锁定 **120亿 RMB** 的安全边际。'
+        highlight: '**3倍 P/S** 的保守定价，锁定 **120亿 RMB** 的安全边际。'
       },
 
     }
