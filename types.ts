@@ -80,5 +80,9 @@ export interface PageData {
         text: string[];
         dataPoints?: {label: string, value: string}[];
     };
+    riskDebate?: {
+      title: string;
+      content: string;
+    };
   };
 }

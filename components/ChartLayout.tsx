@@ -179,7 +179,7 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({ data }) => {
       </div>
 
 
-      <div className={`w-full max-w-[90%] mx-auto grid gap-16 relative z-10 ${isCenterTop || isGridCards ? 'grid-cols-1' : 'grid-cols-12'} ${data.id === 10 ? 'scale-90' : ''}`}>
+      <div className={`w-full max-w-[90%] mx-auto grid gap-16 relative z-10 items-stretch ${isCenterTop || isGridCards ? 'grid-cols-1' : 'grid-cols-12'} ${data.id === 10 ? 'scale-90' : ''}`}>
 
         {/* TEXT CONTENT: Render FIRST usually, but checks layout for Grid spans */}
         <div className={`
@@ -187,7 +187,8 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({ data }) => {
              ${isCenterTop || isGridCards ? 'w-full text-center mb-6' : ''}
              ${!isCenterTop && !isGridCards ? 'col-span-4' : ''}
              ${data.id === 13 ? 'scale-90' : ''}
-        `}>
+        `}
+        >
             <motion.div
                initial={{ opacity: 0, x: -20 }}
                animate={{ opacity: 1, x: 0 }}
@@ -290,13 +291,14 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({ data }) => {
 
         {/* CHART VISUALIZATION */}
         <div className={`
-             flex items-center justify-center relative
+             flex flex-col items-center justify-center relative
              ${isCenterTop || isGridCards ? 'w-full' : 'col-span-8'}
-             ${isGridCards ? 'h-auto' : 'h-[60vh]'}
+             ${isGridCards ? 'h-auto' : ''}
              ${data.id === 5 ? 'top-[-10%]' : ''}
              ${data.id === 6 ? 'top-[-10%]' : ''}
+             ${data.id === 11 ? 'top-[-5%]' : ''}
         `}>
-            <div className={`w-full h-full relative z-10 flex items-center ${data.id === 10 ? 'justify-center' : 'justify-center'} ${isGridCards ? '' : 'bg-black/20 border border-white/5 backdrop-blur-sm'}`}>
+            <div className={`w-full ${data.content?.riskDebate ? 'flex-1 mb-4' : 'h-full'} relative z-10 flex items-center ${data.id === 10 ? 'justify-center' : 'justify-center'} ${isGridCards ? '' : 'bg-black/20 border border-white/5 backdrop-blur-sm'}`}>
                 
                 {/* Decorative Corners */}
                 {!isGridCards && (
@@ -361,9 +363,26 @@ const ChartLayout: React.FC<ChartLayoutProps> = ({ data }) => {
                         </div>
                     </div>
                 ) : (
-                    renderChart(chart)
+                    <div className="w-full h-full flex items-center justify-center scale-y-[0.95] origin-center">
+                        {renderChart(chart)}
+                    </div>
                 )}
+                
             </div>
+
+            {/* Risk Debate Card - NEW POSITION */}
+            {data.content?.riskDebate && (
+                <div className="w-full bg-white/5 border border-white/10 p-6 rounded-sm backdrop-blur-sm relative overflow-hidden group hover:border-ark-cyan/50 transition-colors mt-[5%]">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-ark-cyan"></div>
+                    <div className="flex items-center gap-2 mb-3">
+                            {/* <div className="text-ark-cyan"><Activity size={20} /></div> */}
+                            <div className="text-white font-bold uppercase tracking-widest text-lg">{data.content.riskDebate.title}</div>
+                    </div>
+                    <p className="text-gray-300 text-lg leading-relaxed text-justify">
+                        {data.content.riskDebate.content}
+                    </p>
+                </div>
+            )}
         </div>
       </div>
 
